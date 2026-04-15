@@ -1,0 +1,6 @@
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Raw dataset files
+pandas/ecommerce-sales-analysis/data/raw/*.csv
