@@ -38,5 +38,3 @@ FROM bugs
 GROUP BY component
 ORDER BY bug_count DESC, component
 LIMIT 3;
-
-;

@@ -4,6 +4,7 @@
 -- This file contains business-oriented SQL analyses designed to evaluate
 -- bug quality trends, team performance, delivery flow, and sprint health
 -- in a simulated QA environment.
+-- Analysis date used for reproducible lifecycle calculations: 2026-03-05.
 
 -- ==================================
 -- 12) Reopen rate by project
@@ -26,7 +27,7 @@ SELECT
     COUNT(*) AS total_bugs,
     SUM(CASE WHEN r.reopen_count > 0 THEN 1 ELSE 0 END) AS reopened_bugs,
     ROUND(
-		SUM(CASE WHEN r.reopen_count > 0 THEN 1 ELSE 0 END) / COUNT(*) * 100.0
+		100.0 * SUM(CASE WHEN r.reopen_count > 0 THEN 1 ELSE 0 END) / COUNT(*)
 		, 2) AS reopen_rate_pct
 FROM bugs b
 JOIN projects p ON  b.project_id = p.project_id
@@ -68,7 +69,7 @@ SELECT
     prev_dev_name,
     prev_dev_closed_bugs,
     prev_dev_closed_bugs - closed_bugs AS gap_vs_previous_dev,
-    ROUND((prev_dev_closed_bugs - closed_bugs) / NULLIF(prev_dev_closed_bugs, 0) * 100.0, 2) AS pct_gap_vs_previous_dev
+    ROUND(100.0 * (prev_dev_closed_bugs - closed_bugs) / NULLIF(prev_dev_closed_bugs, 0), 2) AS pct_gap_vs_previous_dev
 FROM rank_closed_bugs
 ORDER BY rnk, dev_name;
 
@@ -134,7 +135,7 @@ WITH periods AS (
 	SELECT 
 		bug_id, 
 		changed_at AS started_at, 
-		COALESCE(LEAD(changed_at) OVER (PARTITION BY bug_id ORDER BY changed_at), NOW()) AS next_change_at, 
+		COALESCE(LEAD(changed_at) OVER (PARTITION BY bug_id ORDER BY changed_at), CAST('2026-03-05 00:00:00' AS DATETIME)) AS next_change_at, 
         new_status
 	FROM bug_status_history
 ), 
@@ -146,7 +147,7 @@ last_bug_activity AS (
     GROUP BY bug_id
 ),
 bug_lifetime AS (
-	SELECT b.bug_id, TIMESTAMPDIFF(HOUR, created_date, COALESCE(last_changed_at,NOW()) ) AS total_lifetime_hours
+	SELECT b.bug_id, TIMESTAMPDIFF(HOUR, created_date, COALESCE(last_changed_at, CAST('2026-03-05 00:00:00' AS DATETIME)) ) AS total_lifetime_hours
 	FROM bugs b
     LEFT JOIN last_bug_activity bla ON b.bug_id = bla.bug_id 
 ),
@@ -286,5 +287,90 @@ SELECT
 
 		ELSE 'Healthy'
 	END AS sprint_health
+FROM final_metrics
+ORDER BY project_name, sprint_name;
+
+-- ==================================
+-- 17) Sprint-level recommended action
+-- ==================================
+-- Converts the sprint health metrics into stakeholder-friendly next steps.
+WITH closed_dates AS (
+    SELECT 
+        bug_id, 
+        MAX(changed_at) AS bug_closed_date
+    FROM bug_status_history
+    WHERE new_status = 'Closed'
+    GROUP BY bug_id
+),
+resolution_days AS (
+	SELECT  
+		b.bug_id, 
+        b.created_date, 
+        cd.bug_closed_date, 
+        b.project_id, 
+        b.sprint_id, 
+        DATEDIFF(cd.bug_closed_date, b.created_date) AS bug_resolution_days
+	FROM bugs b
+	JOIN closed_dates cd ON b.bug_id = cd.bug_id
+),
+aggregation_data_per_sprint AS (
+	SELECT 
+		b.project_id, 
+        b.sprint_id, 
+        COUNT(*) AS total_bugs, 
+		SUM(CASE WHEN b.status = 'Closed' THEN 1 ELSE 0 END) AS closed_bugs,
+		SUM(CASE WHEN b.status = 'Blocked' THEN 1 ELSE 0 END) AS blocked_bugs, 
+		SUM(CASE WHEN b.severity = 'Critical' THEN 1 ELSE 0 END) AS critical_bugs,
+		ROUND(AVG(r.bug_resolution_days), 2) AS avg_resolution_days
+	FROM bugs b
+	LEFT JOIN resolution_days r ON b.bug_id = r.bug_id
+	GROUP BY b.project_id, b.sprint_id
+),
+bugs_reopened_per_sprint AS (
+	SELECT  
+		b.project_id, 
+        b.sprint_id, 
+		COUNT(DISTINCT CASE 
+			WHEN h.old_status IN ('Resolved', 'Closed') 
+            AND h.new_status = 'Open' 
+            THEN b.bug_id 
+		END) AS reopened_bugs
+    FROM bugs b
+	JOIN bug_status_history h ON b.bug_id = h.bug_id 
+    GROUP BY b.project_id, b.sprint_id
+),
+final_metrics AS (
+	SELECT 
+		p.project_name, 
+		s.sprint_name, 
+		a.total_bugs, 
+		a.closed_bugs, 
+		a.blocked_bugs, 
+		a.critical_bugs, 
+		a.avg_resolution_days, 
+		COALESCE(br.reopened_bugs, 0) AS reopened_bugs, 
+		ROUND(100.0 * a.closed_bugs / NULLIF(a.total_bugs, 0), 2) AS closure_rate,
+		ROUND(100.0 * COALESCE(br.reopened_bugs, 0) / NULLIF(a.total_bugs, 0), 2) AS reopen_rate,
+		ROUND(100.0 * a.blocked_bugs / NULLIF(a.total_bugs, 0), 2) AS blocked_rate
+	FROM aggregation_data_per_sprint a
+	LEFT JOIN bugs_reopened_per_sprint br ON br.project_id = a.project_id 
+		AND br.sprint_id = a.sprint_id
+	JOIN projects p ON p.project_id = a.project_id
+	JOIN sprints s ON s.sprint_id = a.sprint_id
+)
+SELECT
+	project_name,
+	sprint_name,
+	closure_rate,
+	reopen_rate,
+	blocked_rate,
+	critical_bugs,
+	CASE
+		WHEN reopen_rate >= 30 THEN 'Review fix validation process'
+		WHEN blocked_rate >= 25 THEN 'Escalate dependencies for blocked issues'
+		WHEN closure_rate < 50 THEN 'Review sprint capacity and prioritization'
+		WHEN critical_bugs >= 2 THEN 'Prioritize critical defect triage'
+		ELSE 'Monitor sprint quality indicators'
+	END AS recommended_action
 FROM final_metrics
 ORDER BY project_name, sprint_name;

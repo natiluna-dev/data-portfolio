@@ -31,7 +31,7 @@ SELECT
     s.sprint_name, 
     COUNT(*) AS total_bugs, 
     SUM(CASE WHEN b.status = 'Closed' THEN 1 ELSE 0 END) AS closed_bugs,
-    ROUND( SUM(CASE WHEN b.status = 'Closed' THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 3) AS close_rate_per_sprint
+    ROUND(100.0 * SUM(CASE WHEN b.status = 'Closed' THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS closure_rate_pct
 FROM bugs b
 JOIN sprints s ON b.sprint_id = s.sprint_id
 JOIN projects p ON b.project_id = p.project_id
@@ -63,7 +63,7 @@ SELECT
 	b.status,
     d.dev_name AS assignee,
     b.created_date,
-    DATEDIFF(CURDATE(),b. created_date) AS days_open
+    DATEDIFF(DATE('2026-03-05'), b.created_date) AS days_open
 FROM bugs b
 LEFT JOIN developers d ON b.assignee_id = d.dev_id
 WHERE b.status IN ('Open', 'In Progress', 'Blocked')

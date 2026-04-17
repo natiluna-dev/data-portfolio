@@ -202,7 +202,7 @@ INSERT INTO bug_status_history (hist_id, bug_id, changed_at, old_status, new_sta
 (134, 35, '2026-02-01 10:10', 'Resolved', 'Open', 'Nati'),
 (135, 35, '2026-02-02 11:20', 'Open', 'In Progress', 'Bruno'),
 (136, 35, '2026-02-04 15:00', 'In Progress', 'Resolved', 'Bruno'),
-(137, 35, '2026-02-04 18:20', 'Resolved', 'Closed', 'Nati');
+(137, 35, '2026-02-04 18:20', 'Resolved', 'Closed', 'Nati'),
 (138, 2, '2026-01-09 10:00', 'Blocked', 'In Progress', 'Bruno'),
 (139, 2, '2026-01-10 14:30', 'In Progress', 'Blocked', 'Bruno'),
 (140, 2, '2026-01-12 09:00', 'Blocked', 'In Progress', 'Bruno'),

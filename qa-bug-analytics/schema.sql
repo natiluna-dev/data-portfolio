@@ -2,7 +2,7 @@
 -- QA Bug Analytics - Schema
 -- =========================
 
-CREATE DATABASE qa_analytics;
+CREATE DATABASE IF NOT EXISTS qa_analytics;
 USE qa_analytics;
 
 DROP TABLE IF EXISTS bug_status_history;

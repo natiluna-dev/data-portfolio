@@ -3,4 +3,4 @@
 **/.DS_Store
 
 # Raw dataset files
-pandas/ecommerce-sales-analysis/data/raw/*.csv
+*/data/raw/*.csv

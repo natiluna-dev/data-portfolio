@@ -42,7 +42,6 @@ ORDER BY p.project_name, s.start_date;
 -- ===============================================
 -- 9) First and last status change per bug.
 -- ===============================================
--- Para cada bug: primer cambio de estado y último cambio (min/max changed_at).
 -- Shows the lifecycle boundaries of each bug based on the earliest and
 -- latest recorded status change.
 SELECT
@@ -90,4 +89,4 @@ FROM bug_status_history bsh
 JOIN bugs b ON bsh.bug_id = b.bug_id
 WHERE bsh.old_status IN ('Resolved', 'Closed')
 AND bsh.new_status = 'Open'
-ORDER BY b.bug_id, bsh.changed_at
+ORDER BY b.bug_id, bsh.changed_at;
