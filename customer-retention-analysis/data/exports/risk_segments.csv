@@ -1,0 +1,39 @@
+contract,tenure_bucket,tech_support_group,online_security_group,risk_segment,customers,churned_customers,churn_rate_pct,revenue_at_risk
+Month-to-month,0-12 months,No tech support,No online security,Month-to-month | 0-12 months | No tech support | No online security,1188,766,64.48,54463.20
+Month-to-month,13-24 months,No tech support,No online security,Month-to-month | 13-24 months | No tech support | No online security,396,182,45.96,14692.25
+Month-to-month,0-12 months,With tech support,No online security,Month-to-month | 0-12 months | With tech support | No online security,182,79,43.41,5764.20
+Month-to-month,25-48 months,No tech support,No online security,Month-to-month | 25-48 months | No tech support | No online security,413,172,41.65,14720.25
+Month-to-month,0-12 months,With tech support,With online security,Month-to-month | 0-12 months | With tech support | With online security,61,25,40.98,1759.25
+Month-to-month,49+ months,No tech support,No online security,Month-to-month | 49+ months | No tech support | No online security,168,65,38.69,5785.00
+Month-to-month,13-24 months,No tech support,With online security,Month-to-month | 13-24 months | No tech support | With online security,117,45,38.46,3560.30
+Month-to-month,0-12 months,No tech support,With online security,Month-to-month | 0-12 months | No tech support | With online security,175,66,37.71,4543.55
+Month-to-month,13-24 months,With tech support,No online security,Month-to-month | 13-24 months | With tech support | No online security,97,34,35.05,2826.65
+Month-to-month,25-48 months,No tech support,With online security,Month-to-month | 25-48 months | No tech support | With online security,136,40,29.41,3295.70
+Month-to-month,25-48 months,With tech support,No online security,Month-to-month | 25-48 months | With tech support | No online security,130,37,28.46,3370.80
+Month-to-month,0-12 months,No internet service,No internet service,Month-to-month | 0-12 months | No internet service | No internet service,388,88,22.68,1771.25
+Month-to-month,25-48 months,With tech support,With online security,Month-to-month | 25-48 months | With tech support | With online security,69,13,18.84,1131.05
+One year,49+ months,No tech support,No online security,One year | 49+ months | No tech support | No online security,150,28,18.67,2630.90
+Month-to-month,49+ months,No tech support,With online security,Month-to-month | 49+ months | No tech support | With online security,87,14,16.09,1322.00
+One year,25-48 months,With tech support,No online security,One year | 25-48 months | With tech support | No online security,96,15,15.63,1176.15
+One year,49+ months,With tech support,No online security,One year | 49+ months | With tech support | No online security,123,19,15.45,1952.30
+One year,25-48 months,No tech support,No online security,One year | 25-48 months | No tech support | No online security,104,16,15.38,1349.00
+One year,25-48 months,With tech support,With online security,One year | 25-48 months | With tech support | With online security,104,15,14.42,1333.35
+Month-to-month,49+ months,With tech support,No online security,Month-to-month | 49+ months | With tech support | No online security,57,8,14.04,775.20
+One year,49+ months,No tech support,With online security,One year | 49+ months | No tech support | With online security,137,18,13.14,1704.70
+Two year,49+ months,No tech support,No online security,Two year | 49+ months | No tech support | No online security,78,9,11.54,784.90
+Month-to-month,13-24 months,No internet service,No internet service,Month-to-month | 13-24 months | No internet service | No internet service,80,8,10.0,168.00
+One year,49+ months,With tech support,With online security,One year | 49+ months | With tech support | With online security,153,15,9.8,1509.35
+One year,25-48 months,No tech support,With online security,One year | 25-48 months | No tech support | With online security,91,7,7.69,617.15
+One year,0-12 months,No internet service,No internet service,One year | 0-12 months | No internet service | No internet service,75,4,5.33,78.70
+Two year,49+ months,With tech support,No online security,Two year | 49+ months | With tech support | No online security,176,8,4.55,838.40
+Month-to-month,25-48 months,No internet service,No internet service,Month-to-month | 25-48 months | No internet service | No internet service,54,2,3.7,39.20
+Two year,49+ months,With tech support,With online security,Two year | 49+ months | With tech support | With online security,516,18,3.49,1685.45
+Two year,49+ months,No tech support,With online security,Two year | 49+ months | No tech support | With online security,129,4,3.1,408.15
+One year,49+ months,No internet service,No internet service,One year | 49+ months | No internet service | No internet service,71,2,2.82,45.70
+One year,25-48 months,No internet service,No internet service,One year | 25-48 months | No internet service | No internet service,123,2,1.63,45.70
+Two year,25-48 months,No internet service,No internet service,Two year | 25-48 months | No internet service | No internet service,160,2,1.25,49.25
+One year,13-24 months,No internet service,No internet service,One year | 13-24 months | No internet service | No internet service,95,1,1.05,20.15
+Two year,49+ months,No internet service,No internet service,Two year | 49+ months | No internet service | No internet service,364,3,0.82,64.25
+Two year,25-48 months,With tech support,With online security,Two year | 25-48 months | With tech support | With online security,55,0,0.0,0.00
+Two year,0-12 months,No internet service,No internet service,Two year | 0-12 months | No internet service | No internet service,50,0,0.0,0.00
+Two year,13-24 months,No internet service,No internet service,Two year | 13-24 months | No internet service | No internet service,64,0,0.0,0.00

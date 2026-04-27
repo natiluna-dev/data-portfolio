@@ -1,0 +1,29 @@
+.DS_Store
+.env
+*.out
+
+# Local database files
+customer_retention.*
+
+# AI assistant internal files
+AGENT.md
+Agent.md
+**/SKILL.md
+**/Skill.md
+data-analysis-notebook/
+sql-analysis/
+
+# Local export workflow files
+sql/*/00_load_and_clean.sql
+sql/*/01_export_for_tableau.sql
+scripts/*.sh
+tableau/dashboard_plan.md
+tableau/customer_churn_dashboard.twb
+tableau/workbook_setup.md
+tableau/.~*.twbr
+
+# Python / Jupyter caches
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+__pycache__/
+*.pyc

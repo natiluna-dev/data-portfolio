@@ -1,0 +1,2 @@
+total_customers,churned_customers,retained_customers,churn_rate_pct,retention_rate_pct,monthly_revenue,revenue_at_risk,revenue_at_risk_pct
+7043,1869,5174,26.54,73.46,456116.60,139130.85,30.5
