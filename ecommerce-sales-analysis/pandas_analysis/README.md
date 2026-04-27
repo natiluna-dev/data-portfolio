@@ -1,91 +1,68 @@
 # E-commerce Sales Analysis with Pandas
 
-## Project Overview
+## Overview
 
-This project analyzes a real-world e-commerce dataset using Python and Pandas to explore sales trends, customer behavior, and product performance.
+This part of the project uses Python and Pandas to explore sales trends, customer behavior, and product performance.
 
-The analysis follows a complete data analysis workflow including:
-- data loading
-- cleaning and validation
-- feature engineering
-- exploratory analysis
-- business-oriented visualizations
+The notebook follows a simple analysis flow:
 
-The goal is to simulate a realistic business analysis process and demonstrate practical data analyst skills.
+- load the data
+- validate key fields
+- clean and prepare the tables
+- create business metrics
+- build charts to explain the results
 
----
+## Questions Answered
 
-## Objective
-
-The main objective of this project is to answer key business questions such as:
-- How has gross order value evolved over time?
-- Which product categories generate the most gross order value?
+- How does gross order value change over time?
+- Which categories generate the most gross order value?
 - How is customer spending distributed?
-- Who are the highest-value customers?
-- Which products sell the most?
+- Who are the top-spending customers?
+- Which products sell the most units?
 
----
-
-## Dataset
-
-This analysis uses the Brazilian E-Commerce Public Dataset by Olist, containing transactional information from an online marketplace.
-
-Main tables used:
-- orders
-- order_items
-- products
-- customers
-
----
-
-## Tools & Libraries
+## Tools
 
 - Python
 - Pandas
 - Matplotlib
 - Jupyter Notebook
 
----
+## Data Preparation
 
-## Data Preparation Process
+Main preparation steps:
 
-The dataset was prepared through several preprocessing steps:
-- Converted imported text date columns to datetime format
-- Validated primary key uniqueness
-- Checked missing/null values
-- Filtered analysis to delivered/completed orders only
-- Created derived business metrics for analysis
-- Built consolidated analytical dataset via table merges
+- convert imported date columns to datetime
+- check duplicate keys
+- check missing values
+- keep only delivered orders for revenue analysis
+- create derived metrics
+- merge the tables used for analysis
 
----
-
-## Key Analysis Performed
+## Main Analysis
 
 ### Monthly Gross Order Value Trend
 
-Analyzed gross order value evolution over time and month-over-month growth.
+Shows how total gross order value changes over time.
 
 ### Gross Order Value by Category
 
-Identified highest-performing product categories by gross order value.
+Shows which categories generate the most value.
 
 ### Customer Spend Distribution
 
-Examined customer purchasing behavior and spending concentration.
+Shows how customer spend is spread across the dataset.
 
-### Top Customers Analysis
+### Top Customers
 
-Ranked customers by total spend and purchase frequency.
+Ranks customers by total gross spend.
 
-### Top Products Analysis
+### Top Products
 
-Measured best-selling products by quantity sold.
-
----
+Ranks products by quantity sold.
 
 ## Visualizations
 
-The notebook exports the main charts to `pandas_analysis/outputs/` so they can be viewed directly from GitHub.
+The notebook exports the main charts to `pandas_analysis/outputs/` so they can be viewed directly on GitHub.
 
 ### Monthly Gross Order Value
 
@@ -107,55 +84,43 @@ The notebook exports the main charts to `pandas_analysis/outputs/` so they can b
 
 ![Top 10 products by quantity sold](outputs/top_10_products_by_quantity_sold.png)
 
----
+## Key Results
 
-## Key Findings
+- Gross order value: `15,419,773.75`
+- Product revenue: `13,221,498.11`
+- Freight revenue: `2,198,275.64`
+- Gross AOV: `159.83`
+- Top 10 categories share: `62.38%`
+- Repeat customer share: `3.0%`
 
-- Delivered orders generated `13,221,498.11` in product revenue and `2,198,275.64` in freight revenue, for a gross order value of `15,419,773.75`.
-- Gross AOV is `159.83`, while product-only AOV is `137.04`.
-- Gross order value is concentrated by category: the top 5 categories account for `39.25%` and the top 10 account for `62.38%`.
-- Customer behavior is acquisition-heavy: `97.0%` of customers placed only one delivered order and `3.0%` placed more than one.
-- Customer spending is heavily right-skewed, with most customers spending modest amounts while a small number of customers represent high-value outliers.
-- Sales volume is concentrated among a small number of high-performing products.
+## Data Quality Notes
 
----
-
-## Data Quality & Reconciliation
-
-The notebook includes a data quality summary that connects each validation check to its analytical decision.
-
-Key checks:
+The notebook includes validation checks to support the analysis:
 
 - `0` duplicate `order_id` values
 - `0` duplicate `customer_id` values
-- `3,345` repeated `customer_unique_id` values, which confirms that customer-level analysis should use `customer_unique_id`
+- `3,345` repeated `customer_unique_id` values
 - `0` unmatched product IDs in `order_items`
 - `2` product categories without English translation
 - `610` products without category
 - `0` negative price rows
 - `0` negative freight rows
 
-The notebook also includes a SQL/Pandas reconciliation table for delivered item rows, delivered orders, product revenue, freight revenue, gross order value, product AOV, and gross AOV.
-
----
+The notebook also includes a comparison table to confirm that the main SQL and Pandas metrics match.
 
 ## Files Included
 
 ```text
 01_pandas_analysis.ipynb -> Full notebook analysis
 outputs/                  -> Exported chart images
-README.md                -> Project summary and documentation
+README.md                 -> Notebook summary
 ```
-
----
 
 ## Skills Demonstrated
 
-This project showcases:
-- Data Cleaning
-- Exploratory Data Analysis (EDA)
-- Data Validation
-- Feature Engineering
-- Business KPI Analysis
-- Data Visualization
-- Analytical Storytelling
+- data cleaning
+- exploratory data analysis
+- data validation
+- feature engineering
+- KPI analysis
+- data visualization

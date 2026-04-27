@@ -2,7 +2,9 @@
 -- Level 4 — KPI & Business Metrics
 -- =========================================
 
+-- =========================================================
 -- 14) Sales concentration by category
+-- =========================================================
 -- Measures how much delivered gross order value is concentrated in the top product categories.
 -- Includes each category's revenue share, cumulative percentage, and revenue rank.
 WITH revenue_per_category AS (
@@ -35,7 +37,9 @@ FROM concentration_by_category
 WHERE rnk <= 10
 ORDER BY rnk; 
 
+-- =========================================================
 -- 15) Customer segmentation by historical spend
+-- =========================================================
 -- Groups customers into High, Mid, and Low value segments based on delivered gross spend.
 -- NTILE(3) is used to split customers into three equally sized groups.
 -- This is historical spend segmentation, not a predictive lifetime value model.
@@ -80,7 +84,9 @@ SELECT
 FROM segmentation
 where gross_spent_group = 3;
 
+-- =========================================================
 -- 16) Revenue trends over time
+-- =========================================================
 -- Provides a comprehensive view of revenue evolution, including monthly revenue,
 -- month-over-month growth, cumulative revenue, and rolling average trends.
 -- This helps identify overall business growth patterns, volatility, and seasonality.
@@ -111,7 +117,9 @@ SELECT
 FROM monthly_comparison
 ORDER BY purchase_month;
 
+-- =========================================================
 -- 17) Repeat purchase indicators
+-- =========================================================
 -- This query measures customer retention behavior by classifying customers as one-time or repeat buyers.
 -- Only delivered orders are considered to reflect completed purchases.
 -- customer_unique_id is used instead of customer_id to correctly identify the same customer across multiple orders.
@@ -144,8 +152,11 @@ SELECT
 FROM totals
 GROUP BY purchase_type;
 
+-- =========================================================
 -- 18) Category growth opportunities
+-- =========================================================
 -- 18A) Category growth opportunities - monthly detailed view
+-- =========================================================
 -- Calculates monthly revenue and month-over-month growth percentage per category.
 -- Helps identify trends, seasonality, and volatility.
 WITH revenue_per_category AS (
@@ -188,7 +199,9 @@ SELECT
 FROM category_growth
 ORDER BY category, purchase_month;
 
+-- =========================================================
 -- 18B) Category growth opportunities - aggregated summary
+-- =========================================================
 -- Calculates average monthly growth per category.
 -- Used to identify high-performing and declining categories.
 -- Interpret results carefully for low-volume categories, because small absolute changes
@@ -231,7 +244,9 @@ FROM category_growth
 GROUP BY category
 ORDER BY avg_growth DESC;
 
+-- =========================================================
 -- 19) SQL/Pandas reconciliation metrics
+-- =========================================================
 -- These metrics are designed to match the Pandas reconciliation table.
 -- They validate that filtering, joins, and metric definitions are consistent across tools.
 SELECT

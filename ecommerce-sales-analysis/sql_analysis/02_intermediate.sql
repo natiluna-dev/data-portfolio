@@ -2,7 +2,9 @@
 -- Level 2 — Intermediate
 -- =========================================
 
+-- =========================================================
 -- 5) Average Order Value (AOV)
+-- =========================================================
 -- Measures the average product revenue and gross value generated per completed order
 -- DISTINCT is required because each order may contain multiple items,
 -- which would otherwise overcount the number of orders after joining with order_items
@@ -26,7 +28,9 @@ SELECT
 	ROUND(gross_order_value / total_delivered_orders, 2) AS gross_aov
 FROM totals; 
 
+-- =========================================================
 -- 6) Identify the top 10 products by gross order value
+-- =========================================================
 -- Product revenue excludes freight. Gross product value includes product price plus freight.
 -- Helps highlight the products contributing the most to total sales
 SELECT 
@@ -41,7 +45,9 @@ GROUP BY oi.product_id
 ORDER BY gross_product_value DESC
 LIMIT 10;
 
+-- =========================================================
 -- 7) Identify the top 10 products by quantity sold
+-- =========================================================
 -- Measures product demand based on total units sold
 -- Useful for comparing high-demand products against high-revenue products
 SELECT 
@@ -54,7 +60,9 @@ GROUP BY oi.product_id
 ORDER BY units_sold DESC
 LIMIT 10;
 
+-- =========================================================
 -- 8) Calculate revenue by product category
+-- =========================================================
 -- Aggregates completed sales at category level to identify top-performing segments
 -- COALESCE is used to group missing category translations under 'Unknown'
 -- LEFT JOINs preserve transactional records even when product or category mapping is missing

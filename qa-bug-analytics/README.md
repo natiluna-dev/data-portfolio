@@ -1,88 +1,101 @@
-# QA Bug Analytics - SQL Project
+# QA Bug Analytics
 
 ## Overview
-This project simulates a QA analytics environment using MySQL. It analyzes bug tracking data across projects, developers, and sprints to identify delivery risks, quality issues, and workflow bottlenecks.
 
-The project is designed from the perspective of a QA professional moving into data analytics: it translates defect lifecycle data into business questions, KPIs, and actionable recommendations for QA Leads, Product Owners, and Engineering Managers.
+This project analyzes bug tracking data with SQL to understand quality issues, team execution, and sprint risk.
 
-## Business Context
-Software teams need visibility into defect trends before they become release risks. This analysis focuses on:
-- bug resolution efficiency
-- reopen patterns
-- blocked work
-- sprint execution
-- backlog movement
-- high-risk defects
+It is designed as a portfolio project for a QA professional moving into data analytics. The analysis turns bug lifecycle data into simple business questions, measurable KPIs, and practical recommendations.
 
 ## Business Questions
-- Which projects generate the most defects?
+
+- Which projects generate the most bugs?
 - Are teams closing bugs fast enough during each sprint?
-- Which bugs or projects show quality instability through reopen activity?
-- Where are blocked issues creating delivery bottlenecks?
-- Which sprints need management attention before release?
-- What actions should teams take based on the KPI signals?
+- Which bugs or projects show more reopen activity?
+- Where do blocked issues create delivery problems?
+- Which sprints need more attention before release?
+- What actions can a team take based on the KPI results?
 
 ## Dataset
-The dataset is synthetic but modeled after real QA workflows. It includes:
+
+The dataset is synthetic, but it was designed to look like a real QA workflow.
+
+It includes:
+
 - 4 software projects
 - 7 developers
 - 8 sprints
 - 35 bugs
 - 147 bug status history events
 
-## Assumptions
-- A reopened bug is any bug that moves from `Resolved` or `Closed` back to `Open`.
-- Current backlog includes bugs with status `Open`, `In Progress`, or `Blocked`.
-- Closure rate is calculated from bugs whose current status is `Closed`.
-- Blocked time is calculated from status history intervals.
-- The analysis date is fixed at `2026-03-05` so aging and lifecycle metrics are reproducible.
-- Sprint health thresholds are intentionally simple and explainable for non-technical stakeholders.
+## Tools
+
+- MySQL
+- SQL
+
+## Analytical Approach
+
+The project is organized in three parts:
+
+- `schema.sql` creates the tables
+- `data.sql` loads the sample data
+- `queries/` contains the analysis from basic queries to KPI-focused queries
+
+The analysis uses a fixed reference date of `2026-03-05` so aging and lifecycle metrics stay reproducible.
 
 ## Main KPIs
-| KPI | Purpose |
-|---|---|
-| Reopen Rate | Measures fix quality and validation effectiveness |
-| Closure Rate | Measures sprint execution |
-| Blocked Rate | Identifies workflow bottlenecks and external dependencies |
-| Cycle Time | Measures time from bug creation to resolution |
-| Backlog Change | Shows whether a sprint is reducing or accumulating unresolved work |
-| Sprint Health | Combines closure, reopen, blocked, and critical defect signals |
 
-## Key Analyses
-- Reopen rate by project
-- Developer closure ranking and gap analysis
-- Sprint backlog trend using window functions
-- Time spent blocked per bug
-- Sprint health classification
-- Recommended action per sprint
+| KPI | What it shows |
+| --- | --- |
+| Reopen Rate | How often bugs come back after being resolved or closed |
+| Closure Rate | How much work is being completed in a sprint |
+| Blocked Rate | How much work is delayed by blockers |
+| Cycle Time | How long bugs take to move from creation to resolution |
+| Backlog Change | Whether a sprint reduces or increases unresolved work |
+| Sprint Health | A simple label that combines the main risk signals |
 
-## Executive Summary
-The analysis identifies quality and delivery risks across several simulated product areas. Reopened bugs point to possible fix instability or insufficient validation criteria. Blocked P1/P2 issues highlight workflow dependencies that could slow delivery. Sprints with low closure rates, critical bugs, and blocked work are classified as higher-risk and require management attention.
+## Analysis Included
 
-## Sample Insights
-- High reopen rates suggest that fixes may need stronger validation before closure.
-- Blocked bugs can significantly increase total lifecycle time and create hidden delivery risk.
-- Some sprints accumulate unresolved work, which may indicate capacity, prioritization, or dependency issues.
-- Developer contribution should be evaluated by both volume and impact, especially critical and high-severity defects.
-- Sprint health is more useful when multiple signals are combined instead of relying on closure rate alone.
+- open bug listing by project and sprint
+- bug count by project and severity
+- top components with the most bugs
+- average resolution time by severity
+- closure rate by sprint
+- developer ranking by closed bugs
+- aging report for open bugs
+- sprint comparison with `LAG`
+- cycle time calculation
+- reopened bug detection
+- reopen rate by project
+- blocked time per bug
+- sprint health classification
+- recommended action by sprint
+
+## Example Insights
+
+- High reopen rates can suggest weak validation before closing a bug.
+- Blocked bugs can increase total bug lifetime and create delivery risk.
+- Some sprints accumulate unresolved work instead of reducing the backlog.
+- Sprint health is easier to understand when several signals are combined, not only closure rate.
 
 ## Recommended Actions
-- Review acceptance criteria and regression coverage for projects with high reopen rates.
-- Escalate dependencies for bugs spending a high share of their lifecycle blocked.
-- Prioritize critical bugs before adding lower-severity work to sprint scope.
-- Use sprint health classification as an early warning signal during sprint reviews.
-- Track backlog change over time to detect whether quality pressure is increasing.
+
+- Review validation criteria in projects with high reopen activity.
+- Escalate dependencies for bugs that spend too much time blocked.
+- Prioritize critical bugs before lower-severity work.
+- Use sprint health as an early warning signal in sprint reviews.
 
 ## Skills Demonstrated
-- SQL joins across normalized tables
-- Aggregations and grouped metrics
-- Conditional calculations with `CASE`
+
+- SQL joins across multiple tables
+- grouped metrics and aggregations
+- conditional logic with `CASE`
 - Common Table Expressions
-- Window functions including `LAG`, `LEAD`, and `DENSE_RANK`
-- Date and lifecycle analysis
-- KPI design and stakeholder-oriented recommendation logic
+- window functions such as `LAG`, `LEAD`, and `DENSE_RANK`
+- date and lifecycle analysis
+- KPI design and business interpretation
 
 ## Project Structure
+
 ```text
 qa-bug-analytics/
 ├── schema.sql
@@ -96,6 +109,7 @@ qa-bug-analytics/
 ```
 
 ## How to Run
+
 1. Create the database and tables:
    ```sql
    SOURCE schema.sql;
@@ -114,5 +128,9 @@ qa-bug-analytics/
    SOURCE queries/04_kpis.sql;
    ```
 
-## Tech Stack
-- MySQL
+## Limitations
+
+- This is a synthetic dataset, not production data.
+- The project is descriptive and rule-based.
+- There is no dashboard in this version.
+- Sprint health uses simple thresholds for explanation purposes.

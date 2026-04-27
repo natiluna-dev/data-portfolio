@@ -2,7 +2,9 @@
 -- Level 3 — Advanced
 -- =========================================
 
+-- =========================================================
 -- 9)	Category gross value contribution
+-- =========================================================
 -- Calculates the percentage share of delivered gross order value by product category.
 WITH categories_revenue AS (
 	SELECT 
@@ -24,7 +26,9 @@ SELECT
 FROM categories_revenue
 ORDER BY gross_category_value DESC; 
 
+-- =========================================================
 -- 10)	Top 10 customers by delivered revenue
+-- =========================================================
 -- Identifies the customers who generated the highest delivered revenue.
 -- Note: customer_unique_id is used instead of customer_id to aggregate revenue at customer level,
 -- since a single customer can have multiple customer_id entries (one per order).
@@ -41,7 +45,9 @@ GROUP BY c.customer_unique_id
 ORDER BY gross_customer_value DESC
 LIMIT 10; 
 
+-- =========================================================
 -- 11) Running gross order value by month
+-- =========================================================
 -- Tracks cumulative delivered gross order value over time.
 WITH revenue_per_month AS (
 	SELECT 
@@ -61,7 +67,9 @@ SELECT
 FROM revenue_per_month
 ORDER BY purchase_month;
 
+-- =========================================================
 -- 12) Month-over-month revenue growth
+-- =========================================================
 -- Compares each month's delivered revenue against the previous month.
 WITH revenue_per_month AS (
 	SELECT 
@@ -88,7 +96,9 @@ SELECT
 FROM monthly_comparison
 ORDER BY purchase_month;
 
+-- =========================================================
 -- 13) Top 5 categories by monthly revenue with previous month comparison
+-- =========================================================
 -- Ranks categories by monthly delivered revenue within each month and compares each category's revenue to its previous month's value.
 WITH category_monthly_gross_order_value AS (
 	SELECT
