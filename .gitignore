@@ -2,5 +2,16 @@
 .DS_Store
 **/.DS_Store
 
+# Excel temporary/local files
+~$*.xlsx
+*.xlsx.bak
+* copy.xlsx
+support-tickets-analysis/excel/support_tickets_dashboard editable.xlsx
+
+# AI assistant/internal workspace files
+AGENT.md
+
 # Raw dataset files
 */data/raw/*.csv
+*/data/raw/*.zip
+*/data/raw/*.sql

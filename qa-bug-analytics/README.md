@@ -4,7 +4,7 @@
 
 This project analyzes bug tracking data with SQL to understand quality issues, team execution, and sprint risk.
 
-It is designed as a portfolio project for a QA professional moving into data analytics. The analysis turns bug lifecycle data into simple business questions, measurable KPIs, and practical recommendations.
+The analysis turns bug lifecycle data into simple business questions, measurable KPIs, and practical recommendations.
 
 ## Business Questions
 

@@ -1,0 +1,9 @@
+metric_name,metric_value
+total_tickets,8469.00
+closed_tickets,2769.00
+backlog_tickets,5700.00
+closed_ticket_rate_pct,32.70
+backlog_rate_pct,67.30
+avg_resolution_time_hours,7.11
+avg_csat_rating,2.99
+low_csat_rate_pct,39.80

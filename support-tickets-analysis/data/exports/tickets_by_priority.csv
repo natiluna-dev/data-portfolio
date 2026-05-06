@@ -1,0 +1,5 @@
+ticket_priority,total_tickets,backlog_tickets,backlog_rate_pct
+Critical,2129,1403,65.90
+High,2085,1380,66.19
+Medium,2192,1498,68.34
+Low,2063,1419,68.78

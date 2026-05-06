@@ -1,0 +1,6 @@
+ticket_type,rated_tickets,avg_csat_rating,low_csat_rate_pct
+"Refund request",596,2.93,41.61
+"Technical issue",580,2.96,40.34
+"Product inquiry",533,3.02,37.34
+"Billing inquiry",544,3.03,40.99
+"Cancellation request",516,3.03,38.37
